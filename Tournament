@@ -5,7 +5,7 @@ import java.util.Comparator;
  * This is the main controller for the Morra KOTH
  * 
  * @author PhiNotPi
- * @version 2/10/14 8:00 PM
+ * @version 2/10/14
  */
 public class Tournament
 {
@@ -16,7 +16,7 @@ public class Tournament
     public static void main(String [] args)
     {
         players = new Player[] {  //There's no separate file for contestants
-            new ExampleBot(),
+            new ExampleBot("ExampleBot"), //name
             new Player("perlTest","perl perlTest.plx %s %s %s %s %s %s") //name and command
         };
         score = new HashMap<Player,Integer>();
