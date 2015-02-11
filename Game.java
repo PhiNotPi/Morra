@@ -80,7 +80,7 @@ public class Game
                 p2s += roundScore;
             }
             
-            System.out.println(p1out[0] + " " + p1out[1] + " " + p2out[0] + " " + p2out[1]);
+            //System.out.println(p1out[0] + " " + p1out[1] + " " + p2out[0] + " " + p2out[1]);
         }
         if(p1forfeit && p2forfeit) return 1;
         if(p1forfeit) return 0;
