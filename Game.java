@@ -7,45 +7,48 @@
  */
 public class Game
 {
-    int result;
-    int p1s;
-    int p2s;
-    Player p1;
-    Player p2;
-    String p1t;
-    String p1g;
-    String p2t;
-    String p2g;
+    int p1s = 0;
+    int p2s = 0;
+    final Player p1;
+    final Player p2;
+    final int rounds;
+    String p1t = "";
+    String p1g = "";
+    String p2t = "";
+    String p2g = "";
 
     /**
      * Constructor for Game objects.  I could have probably used a static method.
      */
     public Game(Player A, Player B, int rounds)
     {
-        result = 1;
         p1 = A;
         p2 = B;
-        p1s = 0;
-        p2s = 0;
-        p1t = "";
-        p2t = "";
-        p1g = "";
-        p2g = "";
+        this.rounds = rounds;
+    }
+
+    public int run()
+    {
         boolean p1forfeit = false;
         boolean p2forfeit = false;
         for(int i = 0; i < rounds; i++)
         {
             String[] p1in = new String[] {p1t,p1g,String.valueOf(p1s),p2t,p2g,String.valueOf(p2s)};
             String[] p2in = new String[] {p2t,p2g,String.valueOf(p2s),p1t,p1g,String.valueOf(p1s)};
-            
-            int[] p1out = p1.getMove(p1in);
-            int[] p2out = p2.getMove(p2in);
-            
-            if(p1out.length != 2)
+
+            int[] p1out = null;
+            try { p1out = p1.getMove(p1in); }
+            catch (Throwable th) { System.err.println(p1 + " forfeits: " + th); }
+
+            int[] p2out = null;
+            try { p2out = p2.getMove(p2in); }
+            catch (Throwable th) { System.err.println(p2 + " forfeits: " + th); };
+
+            if(p1out == null || p1out.length != 2 || p1out[0] > 5 || p1out[1] > 5 || p1out[0] < 0 || p1out[1] < 0)
             {
                 p1forfeit = true;
             }
-            if(p2out.length != 2)
+            if(p2out == null || p2out.length != 2 || p2out[0] > 5 || p2out[1] > 5 || p2out[0] < 0 || p2out[1] < 0)
             {
                 p2forfeit = true;
             }
@@ -53,19 +56,7 @@ public class Game
             {
                 break;
             }
-            if(p1out[0] > 5 || p1out[1] > 5 || p1out[0] < 0 || p1out[1] < 0)  //error checking in two rounds. I could have probably used a try{} block
-            {
-                p1forfeit = true;
-            }
-            if(p2out[0] > 5 || p2out[1] > 5 || p2out[0] < 0 || p2out[1] < 0)
-            {
-                p2forfeit = true;
-            }
-            if(p1forfeit || p2forfeit)
-            {
-                break;
-            }
-            
+
             p1t += String.valueOf(p1out[0]);
             p2t += String.valueOf(p2out[0]);
             p1g += String.valueOf(p1out[1]);
@@ -87,17 +78,11 @@ public class Game
             
             //System.out.println(p1out[0] + " " + p1out[1] + " " + p2out[0] + " " + p2out[1]);
         }
-        if(p1s > p2s || p2forfeit)
-        {
-            result = 2;
-        }
-        if(p1s < p2s || p1forfeit)
-        {
-            result = 0;
-        }
-        if(p1s == p2s || (p1forfeit && p2forfeit))
-        {
-            result = 1;
-        }
+        if(p1forfeit && p2forfeit) return 1;
+        if(p1forfeit) return 0;
+        if(p2forfeit) return 2;
+        if(p1s > p2s) return 2;
+        if(p1s < p2s) return 0;
+        return 1;
     }
 }

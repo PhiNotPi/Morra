@@ -2,22 +2,14 @@ import java.util.Random;
 /**
  * A simple example Morra bot to get you started.
  */
-public class ExampleBot extends Player
+public class ExampleBot implements Player
 {
-    public ExampleBot()
-    {
-        name = "Unnamed";
-    }
-    public ExampleBot(String name)
-    {
-        this.name = name;
-    }
+	public String getName()
+	{
+		return "ExampleBot";
+	}
+
     public int[] getMove(String [] args)
-    {
-        return move(args); //easier than reflection or whatever it's called :)
-    }
-    
-    public static int[] move(String [] args) //all custom code goes in here
     {
         //easiest way I know to break down to create a move history (just contains their throw history)
         char[] theirThrowsC = args[3].toCharArray();

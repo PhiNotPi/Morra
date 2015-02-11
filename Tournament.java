@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Arrays;
 import java.util.Comparator;
 /**
@@ -9,17 +10,15 @@ import java.util.Comparator;
  */
 public class Tournament
 {
-    static Player[] players;
-    static HashMap<Player,Integer> score;
-    static int rounds = 1000; //number of throws in one battle
-    static int repeats = 1; //number of times a battle is played between each pair of contestants
+    static final int rounds = 1000; //number of throws in one battle
+    static final int repeats = 1; //number of times a battle is played between each pair of contestants
     public static void main(String [] args)
     {
-        players = new Player[] {  //There's no separate file for contestants
-            new ExampleBot("ExampleBot"), //name
-            new Player("perlTest","perl perlTest.plx %s %s %s %s %s %s") //name and command
+        Player[] players = new Player[] {  //There's no separate file for contestants
+            new ExampleBot(), //name
+            new NonJavaPlayer("perlTest", new String[]{"perl", "perlTest.plx"}) //name and command
         };
-        score = new HashMap<Player,Integer>();
+        final Map<Player,Integer>  score = new HashMap<Player,Integer>();
         for(Player p : players)
         {
             score.put(p, 0);
@@ -33,22 +32,22 @@ public class Tournament
                 for(int r = 0; r < repeats; r++)
                 {
                     Game g = new Game(p1, p2, rounds);
-                    int result = g.result;
+                    int result = g.run();
                     if(result == 2)
                     {
                         score.put(p1, score.get(p1) + 2);
-                        System.out.println(p1.name +" "+ p2.name);
+                        System.out.println(p1.getName() +" "+ p2.getName());
                     }
                     else if(result == 0)
                     {
                         score.put(p2, score.get(p2) + 2);
-                        System.out.println(p2.name +" "+ p1.name);
+                        System.out.println(p2.getName() +" "+ p1.getName());
                     }
                     else
                     {
                         score.put(p1, score.get(p1) + 1);
                         score.put(p2, score.get(p2) + 1);
-                        System.out.println(p2.name +" = "+ p1.name);
+                        System.out.println(p2.getName() +" = "+ p1.getName());
                     }
                 }
             }
@@ -60,7 +59,7 @@ public class Tournament
         });
         for(Player p : players)
         {
-            System.out.printf("%5d - %-40s%n",score.get(p),p.name);
+            System.out.printf("%5d - %-40s%n",score.get(p),p.getName());
         }
     }
 }
