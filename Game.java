@@ -3,7 +3,7 @@
  * This controls a single battle between two bots.
  * 
  * @author PhiNotPi 
- * @version 2/10/15 8:00 PM
+ * @version 2/11/15
  */
 public class Game
 {
@@ -39,22 +39,24 @@ public class Game
             long time1 = System.nanoTime();
             int[] p1out = null;
             try { p1out = p1.getMove(p1in); }
-            catch (Throwable th) { System.err.println(p1 + " forfeits: " + th); }
+            catch (Throwable th) {  }
 
             long time2 = System.nanoTime();
             int[] p2out = null;
             try { p2out = p2.getMove(p2in); }
-            catch (Throwable th) { System.err.println(p2 + " forfeits: " + th); };
+            catch (Throwable th) {  };
             
             long time3 = System.nanoTime();
 
             if(p1out == null || p1out.length != 2 || p1out[0] > 5 || p1out[1] > 5 || p1out[0] < 0 || p1out[1] < 0 || time2 - time1 > 500000000)
             {
                 p1forfeit = true;
+                System.err.println(p1 + " forfeits against " + p2);
             }
             if(p2out == null || p2out.length != 2 || p2out[0] > 5 || p2out[1] > 5 || p2out[0] < 0 || p2out[1] < 0 || time3 - time2 > 500000000)
             {
                 p2forfeit = true;
+                System.err.println(p2 + " forfeits against " + p1);
             }
             if(p1forfeit || p2forfeit)
             {
