@@ -36,19 +36,23 @@ public class Game
             String[] p1in = new String[] {p1t,p1g,String.valueOf(p1s),p2t,p2g,String.valueOf(p2s)};
             String[] p2in = new String[] {p2t,p2g,String.valueOf(p2s),p1t,p1g,String.valueOf(p1s)};
 
+            long time1 = System.nanoTime();
             int[] p1out = null;
             try { p1out = p1.getMove(p1in); }
             catch (Throwable th) { System.err.println(p1 + " forfeits: " + th); }
 
+            long time2 = System.nanoTime();
             int[] p2out = null;
             try { p2out = p2.getMove(p2in); }
             catch (Throwable th) { System.err.println(p2 + " forfeits: " + th); };
+            
+            long time3 = System.nanoTime();
 
-            if(p1out == null || p1out.length != 2 || p1out[0] > 5 || p1out[1] > 5 || p1out[0] < 0 || p1out[1] < 0)
+            if(p1out == null || p1out.length != 2 || p1out[0] > 5 || p1out[1] > 5 || p1out[0] < 0 || p1out[1] < 0 || time2 - time1 > 500000000)
             {
                 p1forfeit = true;
             }
-            if(p2out == null || p2out.length != 2 || p2out[0] > 5 || p2out[1] > 5 || p2out[0] < 0 || p2out[1] < 0)
+            if(p2out == null || p2out.length != 2 || p2out[0] > 5 || p2out[1] > 5 || p2out[0] < 0 || p2out[1] < 0 || time3 - time2 > 500000000)
             {
                 p2forfeit = true;
             }
@@ -76,7 +80,7 @@ public class Game
                 p2s += roundScore;
             }
             
-            //System.out.println(p1out[0] + " " + p1out[1] + " " + p2out[0] + " " + p2out[1]);
+            System.out.println(p1out[0] + " " + p1out[1] + " " + p2out[0] + " " + p2out[1]);
         }
         if(p1forfeit && p2forfeit) return 1;
         if(p1forfeit) return 0;
