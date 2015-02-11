@@ -19,6 +19,10 @@ public class Tournament
             new NonJavaPlayer("perlTest", new String[]{"perl", "perlTest.plx"}) //name and command
         };
         final Map<Player,Integer>  score = new HashMap<Player,Integer>();
+        for(Player p : players)
+        {
+            score.put(p, 0);
+        }
         for(int i = 0; i < players.length - 1; i++)
         {
             Player p1 = players[i];
