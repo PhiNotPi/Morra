@@ -1,0 +1,91 @@
+
+/**
+ * This controls a single battle between two bots.
+ * 
+ * @author PhiNotPi 
+ * @version 2/10/15 8:00 PM
+ */
+public class Game
+{
+    int result;
+    int p1s;
+    int p2s;
+    Player p1;
+    Player p2;
+    String p1t;
+    String p1g;
+    String p2t;
+    String p2g;
+
+    /**
+     * Constructor for Game objects.  I could have probably used a static method.
+     */
+    public Game(Player A, Player B, int rounds)
+    {
+        result = 1;
+        p1 = A;
+        p2 = B;
+        p1s = 0;
+        p2s = 0;
+        p1t = "";
+        p2t = "";
+        p1g = "";
+        p2g = "";
+        boolean p1forfeit = false;
+        boolean p2forfeit = false;
+        for(int i = 0; i < rounds; i++)
+        {
+            String[] p1in = new String[] {p1t,p1g,String.valueOf(p1s),p2t,p2g,String.valueOf(p2s)};
+            String[] p2in = new String[] {p2t,p2g,String.valueOf(p2s),p1t,p1g,String.valueOf(p1s)};
+            
+            int[] p1out = p1.getMove(p1in);
+            int[] p2out = p2.getMove(p2in);
+            
+            if(p1out.length != 2)
+            {
+                p1forfeit = true;
+            }
+            if(p2out.length != 2)
+            {
+                p2forfeit = true;
+            }
+            if(p1forfeit || p2forfeit)
+            {
+                break;
+            }
+            
+            p1t += String.valueOf(p1out[0]);
+            p2t += String.valueOf(p2out[0]);
+            p1g += String.valueOf(p1out[1]);
+            p2g += String.valueOf(p2out[1]);
+            int roundScore = p1out[0] + p2out[0];
+            //for(String s : p1in)
+            //{
+                //System.out.print(s + ",");
+            //}
+            //System.out.println();
+            if(p1out[1] == p2out[0] && p2out[1] != p1out[0])
+            {
+                p1s += roundScore;
+            }
+            if(p1out[1] != p2out[0] && p2out[1] == p1out[0])
+            {
+                p2s += roundScore;
+            }
+            
+            System.out.println(p1out[0] + " " + p1out[1] + " " + p2out[0] + " " + p2out[1]);
+        }
+        if(p1s > p2s || p2forfeit)
+        {
+            result = 2;
+        }
+        if(p1s < p2s || p1forfeit)
+        {
+            result = 0;
+        }
+        if(p1s == p2s || (p1forfeit && p2forfeit))
+        {
+            result = 1;
+        }
+    }
+}
