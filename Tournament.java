@@ -16,8 +16,8 @@ public class Tournament
     public static void main(String [] args)
     {
         players = new Player[] {  //There's no separate file for contestants
-            new ExampleBot("ExampleBot"), //name
-            new Player("perlTest","perl perlTest.plx %s %s %s %s %s %s") //name and command
+            new ExampleBot(), //name
+            new NonJavaPlayer("perlTest", new String[]{"perl", "perlTest.plx"}) //name and command
         };
         score = new HashMap<Player,Integer>();
         for(Player p : players)
@@ -37,18 +37,18 @@ public class Tournament
                     if(result == 2)
                     {
                         score.put(p1, score.get(p1) + 2);
-                        System.out.println(p1.name +" "+ p2.name);
+                        System.out.println(p1.getName() +" "+ p2.getName());
                     }
                     else if(result == 0)
                     {
                         score.put(p2, score.get(p2) + 2);
-                        System.out.println(p2.name +" "+ p1.name);
+                        System.out.println(p2.getName() +" "+ p1.getName());
                     }
                     else
                     {
                         score.put(p1, score.get(p1) + 1);
                         score.put(p2, score.get(p2) + 1);
-                        System.out.println(p2.name +" = "+ p1.name);
+                        System.out.println(p2.getName() +" = "+ p1.getName());
                     }
                 }
             }
@@ -60,7 +60,7 @@ public class Tournament
         });
         for(Player p : players)
         {
-            System.out.printf("%5d - %-40s%n",score.get(p),p.name);
+            System.out.printf("%5d - %-40s%n",score.get(p),p.getName());
         }
     }
 }
