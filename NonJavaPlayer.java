@@ -31,7 +31,7 @@ public class NonJavaPlayer implements Player {
 
         try {
             // Start the process
-            Process proc = Runtime.getRuntime().exec(command);
+            Process proc = Runtime.getRuntime().exec(fullCmd);
 
             // Attach a reader to the process
             Readable pin = new InputStreamReader(proc.getInputStream());
