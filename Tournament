@@ -11,8 +11,8 @@ public class Tournament
 {
     static Player[] players;
     static HashMap<Player,Integer> score;
-    static int rounds = 1000; //
-    static int repeats = 1;
+    static int rounds = 1000; //number of throws in one battle
+    static int repeats = 1; //number of times a battle is played between each pair of contestants
     public static void main(String [] args)
     {
         players = new Player[] {  //There's no separate file for contestants
