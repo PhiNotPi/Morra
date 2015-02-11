@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Arrays;
 import java.util.Comparator;
 /**
@@ -9,21 +10,15 @@ import java.util.Comparator;
  */
 public class Tournament
 {
-    static Player[] players;
-    static HashMap<Player,Integer> score;
-    static int rounds = 1000; //number of throws in one battle
-    static int repeats = 1; //number of times a battle is played between each pair of contestants
+    static final int rounds = 1000; //number of throws in one battle
+    static final int repeats = 1; //number of times a battle is played between each pair of contestants
     public static void main(String [] args)
     {
-        players = new Player[] {  //There's no separate file for contestants
+        Player[] players = new Player[] {  //There's no separate file for contestants
             new ExampleBot(), //name
             new NonJavaPlayer("perlTest", new String[]{"perl", "perlTest.plx"}) //name and command
         };
-        score = new HashMap<Player,Integer>();
-        for(Player p : players)
-        {
-            score.put(p, 0);
-        }
+        final Map<Player,Integer>  score = new HashMap<Player,Integer>();
         for(int i = 0; i < players.length - 1; i++)
         {
             Player p1 = players[i];
