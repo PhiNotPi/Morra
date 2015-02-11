@@ -33,7 +33,7 @@ public class Tournament
                 for(int r = 0; r < repeats; r++)
                 {
                     Game g = new Game(p1, p2, rounds);
-                    int result = g.result;
+                    int result = g.run();
                     if(result == 2)
                     {
                         score.put(p1, score.get(p1) + 2);
