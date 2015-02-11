@@ -53,6 +53,18 @@ public class Game
             {
                 break;
             }
+            if(p1out[0] > 5 || p1out[1] > 5 || p1out[0] < 0 || p1out[1] < 0)  //error checking in two rounds. I could have probably used a try{} block
+            {
+                p1forfeit = true;
+            }
+            if(p2out[0] > 5 || p2out[1] > 5 || p2out[0] < 0 || p2out[1] < 0)
+            {
+                p2forfeit = true;
+            }
+            if(p1forfeit || p2forfeit)
+            {
+                break;
+            }
             
             p1t += String.valueOf(p1out[0]);
             p2t += String.valueOf(p2out[0]);
